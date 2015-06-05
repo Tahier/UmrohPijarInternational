@@ -26,7 +26,6 @@
 			}
 
 			function nomor_to_primary($id){
-				
 				$this->db->select('paket_id');
 				$this->db->where('paket_nomor', $id);
 				return $this->db->get($this->tablename);

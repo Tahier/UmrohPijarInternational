@@ -54,7 +54,7 @@
 			
 			else
 			{
-				redirect('login/admin_login','refresh');
+				redirect('c_index/admin_umrah','refresh');
 			}
 		}
 
@@ -66,7 +66,7 @@
 			
 			else
 			{
-				redirect('login/agen_login','refresh');
+				redirect('c_index/agen_umrah','refresh');
 			}
 		}
 

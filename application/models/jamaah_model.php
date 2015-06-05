@@ -29,7 +29,7 @@
 
 
 			function token_to_primary($id){
-				$this->db->select($this->primarykey);
+				$this->db->select('jemaah_id');
 				$this->db->where('jemaah_token', $id);
 				return $this->db->get($this->tablename);
 			}
@@ -99,6 +99,84 @@
 			else echo $this->upload->display_errors();
 		}
 			
+		function update_jamaah($id){
+				
+				$config['upload_path'] = './asset/image_jamaah';
+				$config['allowed_types'] = 'gif|jpg|png';
+				// $new_name = date('ymdhis').rand(0000, 9999).".jpg";
+				// $config['file_name'] = $new_name;
+				$this->load->library('upload', $config);
+
+				$upload = array('upload_data' => $this->upload->data());
+				
+				if ( !empty($upload['upload_data']['file_type'])){
+							
+				// $data = array(
+				// 			  'jemaah_nama' => $this->input->post('jemaah_nama'),
+				// 			  'jemaah_tempat_lahir' => $this->input->post('jemaah_tempat_lahir'),
+				// 			  'jemaah_ttl' => $this->input->post('jemaah_ttl'),
+				// 			  'jemaah_nama_ayah'=> $this->input->post('jemaah_nama_ayah'),
+				// 			  'jemaah_no_ktp' => $this->input->post('jemaah_no_ktp'),
+				// 			  'jemaah_alamat' => $this->input->post('jemaah_alamat'),
+				// 			  'jemaah_kelurahan' => $this->input->post('jemaah_kelurahan'),
+				// 			  'jemaah_kecamatan' => $this->input->post('jemaah_kecamatan'),
+				// 			  'jemaah_kota_kab' => $this->input->post('jemaah_kota_kab'),
+				// 			  'jemaah_kodepos' => $this->input->post('jemaah_kodepos'),
+				// 			  'jemaah_tlp_rmh' => $this->input->post('jemaah_tlp_rumah'),
+				// 			  'jemaah_kantor' => $this->input->post('jemaah_kantor'),
+				// 			  'jemaah_phone' => $this->input->post('jemaah_phone'),
+				// 			  'jemaah_email' => $this->input->post('jemaah_email'),
+				// 			  'jemah_no_passport' => $this->input->post('jemaah_no_pasport'),
+				// 			  'jemaah_tgl_buat' => $this->input->post('jemaah_tgl_buat'),
+				// 			  'jemah_tgl_berakhir' => $this->input->post('jemaah_tgl_berakhir'),
+				// 			  'jemaah_tmp_pembuatan' => $this->input->post('jemaah_tmp_pembuatan'),
+				// 			  'username' => $this->input->post('jemaah_username'),
+				// 			  'password' => $this->input->post('jemaah_password'));
+				
+				// $this->db->where($this->primarykey, $id);
+				// $this->db->update($this->tablename, $data);
+					foreach ($upload['upload_data'] as $w => $value) {
+						echo $w.":".$value."<br>";
+					}
+				}	
+						else{
+							// $this->upload->do_upload();
+							// $this->db->select('jemaah_foto');
+							// $this->db->where($this->primarykey, $id);
+							// $res = $this->db->get($this->tablename)->result();
+							// unlink(base_url('asset/image_jamaah'.$res['jemaah_foto']));
+
+							//   $data = array('jemaah_nama' => $this->input->post('jemaah_nama'),
+							//   'jemaah_tempat_lahir' => $this->input->post('jemaah_tempat_lahir'),
+							//   'jemaah_ttl' => $this->input->post('jemaah_ttl'),
+							//   'jemaah_nama_ayah'=> $this->input->post('jemaah_nama_ayah'),
+							//   'jemaah_no_ktp' => $this->input->post('jemaah_no_ktp'),
+							//   'jemaah_alamat' => $this->input->post('jemaah_alamat'),
+							//   'jemaah_kelurahan' => $this->input->post('jemaah_kelurahan'),
+							//   'jemaah_kecamatan' => $this->input->post('jemaah_kecamatan'),
+							//   'jemaah_kota_kab' => $this->input->post('jemaah_kota_kab'),
+							//   'jemaah_kodepos' => $this->input->post('jemaah_kodepos'),
+							//   'jemaah_tlp_rmh' => $this->input->post('jemaah_tlp_rumah'),
+							//   'jemaah_kantor' => $this->input->post('jemaah_kantor'),
+							//   'jemaah_phone' => $this->input->post('jemaah_phone'),
+							//   'jemaah_email' => $this->input->post('jemaah_email'),
+							//   'jemah_no_passport' => $this->input->post('jemaah_no_pasport'),
+							//   'jemaah_tgl_buat' => $this->input->post('jemaah_tgl_buat'),
+							//   'jemah_tgl_berakhir' => $this->input->post('jemaah_tgl_berakhir'),
+							//   'jemaah_tmp_pembuatan' => $this->input->post('jemaah_tmp_pembuatan'),
+							//   'jemaah_foto' => $new_name,
+							//   'username' => $this->input->post('jemaah_username'),
+							//   'password' => $this->input->post('jemaah_password'));
+
+							// $this->db->where($this->primarykey, $id);
+							// $this->db->update($this->tablename, $data);
+							echo "error";
+							foreach ($upload['upload_data'] as $w => $value) {
+						echo $w.":".$value."<br>";
+					}
+						}		
+		}	
+
 
 			function delete_jamaah($id){
 				$this->db->where($this->primarykey, $id);

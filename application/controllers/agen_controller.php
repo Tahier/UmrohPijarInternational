@@ -7,7 +7,7 @@
 	{
 
 		private $limit = 10;
-		
+
 		function __construct()
 		{
 			parent::__construct();
@@ -154,9 +154,9 @@
 
 //--------------------------------------BEGIN OF JAMAAH-------------------------------------------------------------------------------------
 		
-		public function token_to_primary($id){
-			$prim = $this->jamaah_model->token_to_primary($id)->row();
-			return $prim->jemaah_id;
+		public function token_to_primary($id){     
+			$primary = $this->jamaah_model->token_to_primary($id)->row();
+			return $primary->jemaah_id;
 		}
 
 
@@ -224,14 +224,24 @@
 				}
 				else {
 						$this->jamaah_model->add_jamaah();
-						redirect('agen_controller/view_all_jemaah', 'Kembali');
+						redirect('agen_controller/view_all_jemaah', 'refresh');
 					}	
 			}
 
 
-		function update_jemaah($id){     $data['jamaah'] =
-		$data['jemaah'] = $this->jamaah_model->jamaah_get_by_id($id)->row_array();
-		$this->load->view('agen/agen_edit_jamaah', $data); 
+		function update_jemaah($id){
+		if($this->uri->segment(4)!='insert'){
+				if($this->input->post('trigger') !=1 ){
+				$data['jemaah'] = $this->jamaah_model->jamaah_get_by_id($id)->row_array();
+				$this->load->view('agen/agen_edit_jamaah', $data); 
+					}
+				}
+				else {
+						
+						$this->jamaah_model->update_jamaah($this->token_to_primary($id));
+						//redirect('agen_controller/view_all_jemaah');
+					}	
+		
 	}
 
 		function delete_jemaah($id){
