@@ -115,7 +115,7 @@
 			$data['paket']['paket_tgl_pulang'] = date("d M Y, H:i:s", strtotime($data['paket']['paket_tgl_pulang']));
 			$data['paket']['paket_created'] = date("d M Y, H:i:s", strtotime($data['paket']['paket_created']));
 
-			$this->load->view('agen/agen_detail_paket', $data, FALSE);
+			$this->load->view('agen/agen_detail_paket', $data);
 
 		}
 
@@ -237,10 +237,19 @@
 					}
 				}
 				else {
-						
-						$this->jamaah_model->update_jamaah($this->token_to_primary($id));
-						//redirect('agen_controller/view_all_jemaah');
-					}	
+						if(!empty($_FILES['jemaah_foto']['name']) ){
+							$res = $this->jamaah_model->get_photo($this->token_to_primary($id));
+								if(unlink('asset/image_jamaah/'.$res->jemaah_foto)){
+								$this->jamaah_model->update_jamaah($this->token_to_primary($id));
+								redirect('agen_controller/view_all_jemaah','refresh');
+							}
+						}
+						else
+							{
+									$this->jamaah_model->update_jamaah($this->token_to_primary($id));
+									redirect('agen_controller/view_all_jemaah','refresh');
+							}
+				}	
 		
 	}
 
@@ -250,7 +259,14 @@
 
 		}
 
+		function detail_jemaah($id){
+			$data['jemaah'] = $this->jamaah_model->jamaah_get_by_id($id)->row_array();
+			$data['jemaah']['jemaah_ttl'] = date('d-m-Y', strtotime($data['jemaah']['jemaah_ttl']));
+			$data['jemaah']['jemaah_tgl_buat'] = date('d-m-Y', strtotime($data['jemaah']['jemaah_tgl_buat']));
+			$data['jemaah']['jemah_tgl_berakhir'] = date('d-m-Y', strtotime($data['jemaah']['jemah_tgl_berakhir']));
 
+			$this->load->view('agen/agen_detail_jemaah', $data);
+		}
 
+}
 //--------------------------------------END OF JAMAAH-------------------------------------------------------------------------------------
-	}
